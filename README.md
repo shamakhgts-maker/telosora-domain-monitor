@@ -31,8 +31,12 @@ Do not bypass DNS or TLS checks to force a passing result.
 
 ## Commissioning
 
-1. Keep this workflow disabled until SMTP secrets have been entered.
-2. Enable it, open **Actions → Live domain health → Run workflow**, and select
+1. Enter the SMTP secrets before enabling or installing the workflow.
+   If the integration cannot install workflows, open `workflow-template.txt`
+   in GitHub's editor and change its filename to
+   `.github/workflows/live-domain-health.yml`, then commit to `main`.
+   GitHub activates the schedule when the workflow is installed on `main`.
+2. If disabled, enable it. Open **Actions → Live domain health → Run workflow**, and select
    **simulate**. This sends clearly marked simulated failure and recovery
    messages without making any requests to the live domains. It creates a
    separate simulated incident and closes it only after recovery email delivery.
