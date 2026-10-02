@@ -47,7 +47,27 @@ every geographic edge, or IPv6 connectivity when IPv4 exists. Run from an
 independent external host for a visitor-like view. Do not disable TLS
 verification or install an untrusted CA to make a failed check pass.
 
-## Optional scheduling (not installed by this change)
+## External scheduling
+
+The owner approved a public, monitor-only GitHub repository:
+<https://github.com/shamakhgts-maker/telosora-domain-monitor>. It contains
+monitoring code only, not the website or its secrets. The workflow template and
+notification runner are maintained in `scripts/external-monitor/`; see its
+README for SMTP setup, isolated simulation, report retention, and commissioning.
+
+The GitHub connection accepted ordinary repository files but could not install
+the workflow. Until the owner installs `workflow-template.txt` as
+`.github/workflows/live-domain-health.yml`, adds the SMTP Actions secrets, and
+the isolated notification test succeeds, **automatic monitoring is not active**.
+Do not treat a prepared workflow or a passing local test as proof of scheduling
+or notification delivery.
+
+The GitHub schedule requests minutes 7, 22, 37, 52 of every UTC hour; GitHub may
+delay or drop scheduled jobs. A runner's public DNS restrictions must be
+reported, not bypassed. Failure stdout/stderr and exit status are retained in
+90-day run artifacts and failure JSON is recorded in durable GitHub issue
+history before notification. Recovery closes the incident only after SMTP
+acceptance and never removes the original failure.
 
 Use an existing external scheduler/CI runner with Node.js, a trusted system CA
 store, outbound DNS to the two resolvers, and outbound TCP ports 80/443. Run
